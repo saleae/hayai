@@ -4,6 +4,7 @@
 #include <vector>
 #include <limits>
 #include <iomanip>
+#include <random>
 #include <string>
 #include <cstring>
 
@@ -300,8 +301,13 @@ namespace hayai
         static void ShuffleTests()
         {
             Benchmarker& instance = Instance();
-            std::random_shuffle(instance._tests.begin(),
-                                instance._tests.end());
+
+            std::random_device rd;
+            std::mt19937 g(rd());
+
+            std::shuffle(instance._tests.begin(),
+                         instance._tests.end(),
+                        g);
         }
     private:
         /// Calibration model.
